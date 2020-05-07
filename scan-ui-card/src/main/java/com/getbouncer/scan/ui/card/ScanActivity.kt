@@ -19,6 +19,11 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.getbouncer.scan.camera.CameraAdapter
+import com.getbouncer.scan.camera.CameraErrorListener
+import com.getbouncer.scan.camera.FrameConverter
+import com.getbouncer.scan.camera.camera2.Camera2Adapter
+import com.getbouncer.scan.camera.camera2.ImageListenerAdapter
 import com.getbouncer.scan.framework.Config
 import com.getbouncer.scan.framework.ProcessBoundAnalyzerLoop
 import com.getbouncer.scan.framework.ResultAggregator
@@ -27,11 +32,6 @@ import com.getbouncer.scan.framework.api.ERROR_CODE_NOT_AUTHENTICATED
 import com.getbouncer.scan.framework.api.NetworkResult
 import com.getbouncer.scan.framework.api.uploadScanStats
 import com.getbouncer.scan.framework.api.validateApiKey
-import com.getbouncer.scan.camera.CameraAdapter
-import com.getbouncer.scan.camera.CameraErrorListener
-import com.getbouncer.scan.camera.FrameConverter
-import com.getbouncer.scan.camera.camera2.Camera2Adapter
-import com.getbouncer.scan.camera.camera2.ImageListenerAdapter
 import kotlin.coroutines.CoroutineContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
