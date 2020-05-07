@@ -8,9 +8,7 @@ import android.util.AttributeSet
 import android.util.Size
 import android.util.TypedValue
 import android.view.View
-import androidx.annotation.RestrictTo
 
-@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 private fun RectF.scaled(scaledSize: Size): RectF {
     return RectF(
         this.left * scaledSize.width,
@@ -23,7 +21,7 @@ private fun RectF.scaled(scaledSize: Size): RectF {
 /**
  * A detection box to display on the debug overlay.
  */
-data class DetectionBox(
+data class DebugDetectionBox(
     val rect: RectF,
 
     val confidence: Float,
@@ -31,7 +29,6 @@ data class DetectionBox(
     val label: String
 )
 
-@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 class DebugOverlay(context: Context, attrs: AttributeSet?) : View(context, attrs) {
 
     private val paint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
@@ -49,7 +46,7 @@ class DebugOverlay(context: Context, attrs: AttributeSet?) : View(context, attrs
         textAlign = Paint.Align.LEFT
     }
 
-    private var boxes: Collection<DetectionBox>? = null
+    private var boxes: Collection<DebugDetectionBox>? = null
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
@@ -73,7 +70,7 @@ class DebugOverlay(context: Context, attrs: AttributeSet?) : View(context, attrs
         else -> R.color.bouncerDebugLowConfidence
     })
 
-    fun setBoxes(boxes: Collection<DetectionBox>?) {
+    fun setBoxes(boxes: Collection<DebugDetectionBox>?) {
         this.boxes = boxes
         invalidate()
         requestLayout()
