@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="bouncerCardPanColor">@android:color/white</color>
+    <color name="bouncerCardPanOutlineColor">@android:color/black</color>
+
+    <color name="bouncerCardExpiryColor">@android:color/white</color>
+    <color name="bouncerCardExpiryOutlineColor">@android:color/black</color>
+
+    <color name="bouncerEnterCardManuallyColorDark">@android:color/white</color>
+    <color name="bouncerEnterCardManuallyColorLight">@android:color/black</color>
+    <color name="bouncerInstructionsColorDark">@android:color/white</color>
+    <color name="bouncerInstructionsColorLight">@android:color/black</color>
+
+    <color name="bouncerNotFoundBackground">#DD222222</color>
+    <color name="bouncerFoundBackground">#DD222222</color>
+    <color name="bouncerCorrectBackground">#DD222222</color>
+    <color name="bouncerWrongBackground">#DD222222</color>
+
+    <color name="bouncerNotFoundOutline">#FFFFFF</color>
+    <color name="bouncerFoundOutline">#1E90FF</color>
+    <color name="bouncerCorrectOutline">#2ED573</color>
+    <color name="bouncerWrongOutline">#FF2222</color>
+
+    <color name="bouncerCloseButtonDarkColor">#FFFFFF</color>
+    <color name="bouncerFlashButtonDarkColor">#FFFFFF</color>
+    <color name="bouncerCloseButtonLightColor">#000000</color>
+    <color name="bouncerFlashButtonLightColor">#000000</color>
+
+    <color name="bouncerDebugHighConfidence">#00FF00</color>
+    <color name="bouncerDebugMediumConfidence">#DDDD00</color>
+    <color name="bouncerDebugLowConfidence">#FF0000</color>
+</resources>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="bouncerViewFinderMargin">16dp</dimen>
+    <dimen name="bouncerViewFinderVerticalBias">0.5</dimen>
+    <dimen name="bouncerViewFinderHorizontalBias">0.5</dimen>
+
+    <dimen name="bouncerCardDetailsMargin">24dp</dimen>
+
+    <dimen name="bouncerInstructionsMargin">16dp</dimen>
+    <dimen name="bouncerEnterCardManuallyMargin">16dp</dimen>
+
+    <dimen name="bouncerNotFoundOutlineWidth">1</dimen>
+    <dimen name="bouncerFoundOutlineWidth">5</dimen>
+    <dimen name="bouncerCorrectOutlineWidth">10</dimen>
+    <dimen name="bouncerWrongOutlineWidth">10</dimen>
+
+    <dimen name="bouncerPanTextSize">20sp</dimen>
+    <dimen name="bouncerPanStrokeSize">2.5</dimen>
+
+    <dimen name="bouncerExpiryTextSize">16sp</dimen>
+    <dimen name="bouncerExpiryStrokeSize">2.5</dimen>
+
+    <dimen name="bouncerEnterCardManuallyTextSize">18sp</dimen>
+    <dimen name="bouncerInstructionsTextSize">22sp</dimen>
+
+    <dimen name="bouncerButtonMargin">16dp</dimen>
+    <dimen name="bouncerIconStrokeWidth">2</dimen>
+</resources>

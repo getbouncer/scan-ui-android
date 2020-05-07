@@ -1,0 +1,27 @@
+<resources>
+    <string name="bouncer_preview_description">card scanning window</string>
+    <string name="bouncer_debug_description">card debug window</string>
+    <string name="bouncer_close_button_description">close button</string>
+
+    <string name="bouncer_card_view_finder_description">card view finder</string>
+
+    <string name="bouncer_camera_permission_denied_message">Please allow camera access to scan your card</string>
+    <string name="bouncer_camera_permission_denied_ok">OK</string>
+    <string name="bouncer_camera_permission_denied_cancel">Cancel</string>
+
+    <string name="bouncer_card_scan_instructions">Scan your card</string>
+    <string name="bouncer_enter_card_manually">Enter card manually</string>
+    <string name="bouncer_scanned_wrong_card">Please scan the card ending in %1$s</string>
+
+    <string name="bouncer_error_camera_title">Camera Problem</string>
+    <string name="bouncer_error_camera_open">The camera failed to turn on</string>
+    <string name="bouncer_error_camera_access">Permission was denied when turning on the camera</string>
+    <string name="bouncer_error_camera_unsupported">This device does not support the required camera features</string>
+    <string name="bouncer_error_camera_acknowledge_button">Close</string>
+
+    <string name="bouncer_api_key_invalid_title">Network Problem</string>
+    <string name="bouncer_api_key_invalid_message">Sorry, this API key is not valid.</string>
+    <string name="bouncer_api_key_invalid_ok">OK</string>
+
+    <string name="bouncer_cardscan_logo">cardscan.io logo</string>
+</resources>

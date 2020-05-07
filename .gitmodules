@@ -1,0 +1,3 @@
+[submodule "scan-camera-android"]
+	path = scan-camera-android
+	url = https://github.com/getbouncer/scan-camera-android
