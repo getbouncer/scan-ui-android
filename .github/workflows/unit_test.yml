@@ -22,4 +22,4 @@ jobs:
         with:
           java-version: 1.8
       - name: Run unit tests
-        run: ./gradlew scan-ui-card:test
+        run: ./gradlew scan-ui:test
