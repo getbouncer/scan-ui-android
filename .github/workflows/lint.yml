@@ -22,6 +22,6 @@ jobs:
         with:
           java-version: 1.8
       - name: Lint
-        run: ./gradlew scan-ui-card:ktlint
+        run: ./gradlew scan-ui:ktlint
       - name: CheckStyle
-        run: ./gradlew scan-ui-card:checkstyle
+        run: ./gradlew scan-ui:checkstyle
