@@ -12,7 +12,7 @@ This document describes how to customize this library to fit your user interface
 
 ## Text
 
-Text values are stored in the [`strings`](../scan-ui-card/src/main/res/values/strings.xml) resource file. To change the value of any of these strings, you can override them in your app.
+Text values are stored in the [`strings`](../scan-ui/src/main/res/values/strings.xml) resource file. To change the value of any of these strings, you can override them in your app.
 
 Add strings with the same names to your app's resources (`src/main/res/values/strings.xml`) and this library will pick up the values you specified.
 
@@ -27,7 +27,7 @@ Example:
 
 ## Colors
 
-This library uses colors defined in the [`colors`](../scan-ui-card/src/main/res/values/colors.xml) resource file. To change the value of any of these colors, you can override them in your app.
+This library uses colors defined in the [`colors`](../scan-ui/src/main/res/values/colors.xml) resource file. To change the value of any of these colors, you can override them in your app.
 
 Add colors with the same names to your app's resources (`src/main/res/values/colors.xml`) and this library will pick up the values you specified.
 
@@ -50,7 +50,7 @@ Example:
 
 ## Dimensions
 
-Padding, text size, and other dimension values are stored in the [`dimensions`](../scan-ui-card/src/main/res/values/dimensions.xml) resource file. To change the size
+Padding, text size, and other dimension values are stored in the [`dimensions`](../scan-ui/src/main/res/values/dimensions.xml) resource file. To change the size
 of any of these dimensions, you can override them in your app.
 
 Add dimensions with the same names to your app's resources (`src/main/res/values/dimensions.xml`) and this library will pick up the values you specified.
@@ -67,7 +67,7 @@ Example:
 
 ## Icons
 
-Icons are defined in the [`drawable`](../scan-ui-card/src/main/res/drawable) directory. To replace any of these icons in your app, create a new drawable in your app with the same name as the icon you wish to replace.
+Icons are defined in the [`drawable`](../scan-ui/src/main/res/drawable) directory. To replace any of these icons in your app, create a new drawable in your app with the same name as the icon you wish to replace.
 
 Example:
 
