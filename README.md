@@ -37,7 +37,7 @@ These libraries are published in the [jcenter](https://jcenter.bintray.com/com/g
 dependencies {
     implementation 'com.getbouncer:scan-framework:2.0.0005'
     implementation 'com.getbouncer:scan-camera:2.0.0005'
-    implementation 'com.getbouncer:scan-ui-card:2.0.0005'
+    implementation 'com.getbouncer:scan-ui:2.0.0005'
 }
 ```
 

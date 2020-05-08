@@ -12,44 +12,44 @@ Development guide
 
 ## Code Organization
 
-This android library builds on top of the framework in the [scan-framework library](https://github.com/getbouncer/scan-framework-android) to provide user interfaces for scanning payment cards. Anything specific to the user interface of scanning cards lives in this library.
+This android library builds on top of the framework in the [scan-framework library](https://github.com/getbouncer/scan-framework-android) to provide user interfaces for scanning. Anything specific to the user interface of scanning lives in this library.
 
 This library consists of these modules:
 * [scan-framework](#scan-framework)
 * [scan-camera](#scan-camera)
-* [scan-ui-card](#scan-ui-card)
+* [scan-ui](#scan-ui)
 
 ![dependencies](images/dependencies.png)
 
 ### scan-framework
 
-[scan-framework](https://github.com/getbouncer/scan-framework-android) contains the framework used to scan cards. See the [architecture document](https://github.com/getbouncer/scan-framework-android/blob/master/docs/architecture.md) for details on how it processes images from the camera.
+[scan-framework](https://github.com/getbouncer/scan-framework-android) contains the framework used to scan. See the [architecture document](https://github.com/getbouncer/scan-framework-android/blob/master/docs/architecture.md) for details on how it processes images from the camera.
 
 ### scan-camera
 
 [scan-camera](https://github.com/getbouncer/scan-camera-android) contains the camera interfaces for setting up the camera on the device and receiving images from it. It also handles converting the images from the camera to a processable format.
 
-### scan-ui-card
+### scan-ui
 
-[scan-ui-card](https://github.com/getbouncer/scan-ui-card) contains some common functionality shared between user interfaces. This provides the card viewfinder, debug overlay, and abstract scan activity.
+[scan-ui](https://github.com/getbouncer/scan-ui) contains some common functionality shared between user interfaces. This provides the viewfinder, debug overlay, and abstract scan activity.
 
 ## Building
 
 Check out the project using `git`. Note that this project makes use of submodules, so a `recursive` clone is recommended.
 ```bash
-git clone --recursive https://github.com/getbouncer/scan-ui-card-android
+git clone --recursive https://github.com/getbouncer/scan-ui-android
 ```
 
 To build the project, run the following command:
 ```bash
-./gradlew scan-ui-card:build
+./gradlew scan-ui:build
 ```
 
 To create an AAR release of the app, run the following command:
 ```bash
-./gradlew scan-ui-card:assembleRelease
+./gradlew scan-ui:assembleRelease
 ```
-This will place an AAR file in `scan-ui-card/build/outputs/aar`
+This will place an AAR file in `scan-ui/build/outputs/aar`
 
 ## Contributing
 
