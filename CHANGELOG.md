@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.0.0006](https://github.com/getbouncer/scan-ui-android/tree/2.0.0006) (2020-05-09)
+
+[Full Changelog](https://github.com/getbouncer/scan-ui-android/compare/2.0.005...2.0.0006)
+
+**Merged pull requests:**
+
+- Allow invalid api key error [\#4](https://github.com/getbouncer/scan-ui-android/pull/4) ([awushensky](https://github.com/awushensky))
+
 ## [2.0.005](https://github.com/getbouncer/scan-ui-android/tree/2.0.005) (2020-05-08)
 
 [Full Changelog](https://github.com/getbouncer/scan-ui-android/compare/0904ef185c19491c25b73c61eb8a22bed1eecb75...2.0.005)
