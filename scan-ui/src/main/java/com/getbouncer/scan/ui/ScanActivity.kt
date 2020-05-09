@@ -243,7 +243,7 @@ abstract class ScanActivity<ImageFormat, State, AnalyzerResult, FinalResult> : A
         }
     }
 
-    private fun showApiKeyInvalidError() {
+    fun showApiKeyInvalidError() {
         val builder = AlertDialog.Builder(this)
         builder.setTitle(R.string.bouncer_api_key_invalid_title)
         builder.setMessage(R.string.bouncer_api_key_invalid_message)
