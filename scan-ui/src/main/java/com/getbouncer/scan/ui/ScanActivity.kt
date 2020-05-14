@@ -10,8 +10,8 @@ import android.graphics.PointF
 import android.os.Bundle
 import android.util.Log
 import android.util.Size
-import android.view.TextureView
 import android.view.WindowManager
+import android.widget.FrameLayout
 import androidx.annotation.LayoutRes
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
@@ -21,8 +21,8 @@ import androidx.core.content.ContextCompat
 import com.getbouncer.scan.camera.CameraAdapter
 import com.getbouncer.scan.camera.CameraErrorListener
 import com.getbouncer.scan.camera.FrameConverter
-import com.getbouncer.scan.camera.camera2.Camera2Adapter
-import com.getbouncer.scan.camera.camera2.ImageListenerAdapter
+import com.getbouncer.scan.camera.camera1.Camera1Adapter
+import com.getbouncer.scan.camera.camera1.ImageReceiverAnalyzer
 import com.getbouncer.scan.framework.Config
 import com.getbouncer.scan.framework.ProcessBoundAnalyzerLoop
 import com.getbouncer.scan.framework.ResultAggregator
@@ -80,15 +80,12 @@ abstract class ScanActivity<ImageFormat, State, AnalyzerResult, FinalResult> : A
         fun getCanceledReason(data: Intent?): Int =
             data?.getIntExtra(RESULT_CANCELED_REASON, Int.MIN_VALUE) ?: Int.MIN_VALUE
 
-        fun Intent?.isUserCanceled(): Boolean = getCanceledReason(
-            this
-        ) == CANCELED_REASON_USER
-        fun Intent?.isCameraError(): Boolean = getCanceledReason(
-            this
-        ) == CANCELED_REASON_CAMERA_ERROR
-        fun Intent?.isAnalyzerFailure(): Boolean = getCanceledReason(
-            this
-        ) == CANCELED_REASON_ANALYZER_FAILURE
+        fun Intent?.isUserCanceled(): Boolean = getCanceledReason(this) ==
+                CANCELED_REASON_USER
+        fun Intent?.isCameraError(): Boolean = getCanceledReason(this) ==
+                CANCELED_REASON_CAMERA_ERROR
+        fun Intent?.isAnalyzerFailure(): Boolean = getCanceledReason(this) ==
+                CANCELED_REASON_ANALYZER_FAILURE
 
         fun Intent?.instanceId(): String? = this?.getStringExtra(RESULT_INSTANCE_ID)
         fun Intent?.scanId(): String? = this?.getStringExtra(RESULT_SCAN_ID)
@@ -107,11 +104,7 @@ abstract class ScanActivity<ImageFormat, State, AnalyzerResult, FinalResult> : A
 
     private val cameraAdapter by lazy { buildCameraAdapter() }
     protected val cameraErrorListener by lazy {
-        CameraErrorListenerImpl(this) { t ->
-            cameraErrorCancelScan(
-                t
-            )
-        }
+        CameraErrorListenerImpl(this) { t -> cameraErrorCancelScan(t) }
     }
 
     private var isApiKeyValid = true
@@ -379,23 +372,24 @@ abstract class ScanActivity<ImageFormat, State, AnalyzerResult, FinalResult> : A
             mainLoop.start(this)
         }
 
-        val onImageAvailableListener = ImageListenerAdapter(
+        val imageReceiver = ImageReceiverAnalyzer(
             loop = mainLoop,
-            frameConverter = buildFrameConverter()
+            frameConverter = buildFrameConverter(),
+            analysisResolution = minimumAnalysisResolution
         )
 
-        return Camera2Adapter(
+        return Camera1Adapter(
             activity = this,
-            onImageAvailableListener = onImageAvailableListener,
+            previewView = previewFrame,
             minimumResolution = minimumAnalysisResolution,
             cameraErrorListener = cameraErrorListener,
-            cameraTexture = previewTextureView
+            imageReceiver = imageReceiver
         )
     }
 
     protected abstract val minimumAnalysisResolution: Size
 
-    protected abstract val previewTextureView: TextureView?
+    protected abstract val previewFrame: FrameLayout
 
     /**
      * Generate the main loop
