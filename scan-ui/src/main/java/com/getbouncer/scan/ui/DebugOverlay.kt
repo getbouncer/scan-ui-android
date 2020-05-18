@@ -8,8 +8,10 @@ import android.util.AttributeSet
 import android.util.Size
 import android.util.TypedValue
 import android.view.View
+import androidx.annotation.VisibleForTesting
 
-private fun RectF.scaled(scaledSize: Size): RectF {
+@VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+internal fun RectF.scaled(scaledSize: Size): RectF {
     return RectF(
         this.left * scaledSize.width,
         this.top * scaledSize.height,
