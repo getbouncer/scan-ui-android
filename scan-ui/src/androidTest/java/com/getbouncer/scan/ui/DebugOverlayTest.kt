@@ -3,8 +3,8 @@ package com.getbouncer.scan.ui
 import android.graphics.RectF
 import android.util.Size
 import androidx.test.filters.SmallTest
-import org.junit.Test
 import kotlin.test.assertEquals
+import org.junit.Test
 
 class DebugOverlayTest {
 
