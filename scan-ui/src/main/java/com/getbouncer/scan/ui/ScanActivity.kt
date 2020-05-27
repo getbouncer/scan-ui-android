@@ -64,7 +64,7 @@ class CameraErrorListenerImpl(
     }
 }
 
-abstract class ScanActivity<ImageFormat, State, AnalyzerResult, FinalResult> : AppCompatActivity(), CoroutineScope {
+abstract class ScanActivity<ImageFormat, State, AnalyzerResult, InterimResult, FinalResult> : AppCompatActivity(), CoroutineScope {
 
     companion object {
         private const val PERMISSION_REQUEST_CODE = 1200
@@ -100,7 +100,7 @@ abstract class ScanActivity<ImageFormat, State, AnalyzerResult, FinalResult> : A
         private set
 
     private lateinit var resultAggregator:
-            ResultAggregator<ImageFormat, State, AnalyzerResult, FinalResult>
+            ResultAggregator<ImageFormat, State, AnalyzerResult, InterimResult, FinalResult>
 
     private val cameraAdapter by lazy { buildCameraAdapter() }
     protected val cameraErrorListener by lazy {
@@ -114,15 +114,16 @@ abstract class ScanActivity<ImageFormat, State, AnalyzerResult, FinalResult> : A
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // prevent screenshots and keep the screen on while scanning
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_SECURE + WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON,
+            WindowManager.LayoutParams.FLAG_SECURE + WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
+        )
+
         setContentView(getLayoutRes())
 
         runBlocking { Stats.startScan() }
-
-        // prevent screenshots
-        window.setFlags(
-            WindowManager.LayoutParams.FLAG_SECURE,
-            WindowManager.LayoutParams.FLAG_SECURE
-        )
 
         ensureValidApiKey()
 
@@ -395,11 +396,11 @@ abstract class ScanActivity<ImageFormat, State, AnalyzerResult, FinalResult> : A
      * Generate the main loop
      */
     protected abstract fun buildMainLoop(
-        resultAggregator: ResultAggregator<ImageFormat, State, AnalyzerResult, FinalResult>
+        resultAggregator: ResultAggregator<ImageFormat, State, AnalyzerResult, InterimResult, FinalResult>
     ): ProcessBoundAnalyzerLoop<ImageFormat, State, AnalyzerResult>
 
     protected abstract fun buildResultAggregator():
-            ResultAggregator<ImageFormat, State, AnalyzerResult, FinalResult>
+            ResultAggregator<ImageFormat, State, AnalyzerResult, InterimResult, FinalResult>
 
     protected abstract fun buildFrameConverter(): FrameConverter<Bitmap, ImageFormat>
 }
