@@ -35,9 +35,9 @@ These libraries are published in the [jcenter](https://jcenter.bintray.com/com/g
 
 ```gradle
 dependencies {
-    implementation 'com.getbouncer:scan-framework:2.0.0008'
-    implementation 'com.getbouncer:scan-camera:2.0.0008'
-    implementation 'com.getbouncer:scan-ui:2.0.0008'
+    implementation 'com.getbouncer:scan-framework:2.0.0009'
+    implementation 'com.getbouncer:scan-camera:2.0.0009'
+    implementation 'com.getbouncer:scan-ui:2.0.0009'
 }
 ```
 
