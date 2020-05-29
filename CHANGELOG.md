@@ -1,5 +1,14 @@
 # Changelog
 
+## [2.0.0009](https://github.com/getbouncer/scan-ui-android/tree/2.0.0009) (2020-05-29)
+
+[Full Changelog](https://github.com/getbouncer/scan-ui-android/compare/2.0.0008...2.0.0009)
+
+**Merged pull requests:**
+
+- Bump core-ktx from 1.2.0 to 1.3.0 [\#14](https://github.com/getbouncer/scan-ui-android/pull/14) ([dependabot-preview[bot]](https://github.com/apps/dependabot-preview))
+- Keep the screen on while scanning [\#13](https://github.com/getbouncer/scan-ui-android/pull/13) ([awushensky](https://github.com/awushensky))
+
 ## [2.0.0008](https://github.com/getbouncer/scan-ui-android/tree/2.0.0008) (2020-05-21)
 
 [Full Changelog](https://github.com/getbouncer/scan-ui-android/compare/2.0.0007...2.0.0008)
