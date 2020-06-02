@@ -13,7 +13,7 @@ ext {
 
     libraryDescription = 'This library provides the base user interface for scanning.'
 
-    siteUrl = 'https://github.com/getbouncer/scan-ui-android'
+    siteUrl = 'https://cardscan.io'
     gitUrl = 'https://github.com/getbouncer/scan-ui-android.git'
 
     libraryVersion = version
