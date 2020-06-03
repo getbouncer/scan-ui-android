@@ -51,8 +51,7 @@ class ViewFinderBackground(context: Context, attrs: AttributeSet?) : View(contex
     }
 
     private val theme = context.theme
-    private val attributes = theme.obtainStyledAttributes(attrs,
-        R.styleable.ViewFinderBackground, 0, 0)
+    private val attributes = theme.obtainStyledAttributes(attrs, R.styleable.ViewFinderBackground, 0, 0)
     private val backgroundColor =
         attributes.getColor(
             R.styleable.ViewFinderBackground_backgroundColor,
@@ -61,7 +60,8 @@ class ViewFinderBackground(context: Context, attrs: AttributeSet?) : View(contex
             } else {
                 @Suppress("deprecation")
                 resources.getColor(R.color.bouncerNotFoundBackground)
-            })
+            }
+        )
 
     private var paintBackground = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         color = backgroundColor

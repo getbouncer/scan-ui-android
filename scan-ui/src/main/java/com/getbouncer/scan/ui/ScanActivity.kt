@@ -31,11 +31,11 @@ import com.getbouncer.scan.framework.api.ERROR_CODE_NOT_AUTHENTICATED
 import com.getbouncer.scan.framework.api.NetworkResult
 import com.getbouncer.scan.framework.api.uploadScanStats
 import com.getbouncer.scan.framework.api.validateApiKey
-import kotlin.coroutines.CoroutineContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import kotlin.coroutines.CoroutineContext
 
 class CameraErrorListenerImpl(
     private val context: Context,
@@ -81,11 +81,11 @@ abstract class ScanActivity<ImageFormat, State, AnalyzerResult, InterimResult, F
             data?.getIntExtra(RESULT_CANCELED_REASON, Int.MIN_VALUE) ?: Int.MIN_VALUE
 
         fun Intent?.isUserCanceled(): Boolean = getCanceledReason(this) ==
-                CANCELED_REASON_USER
+            CANCELED_REASON_USER
         fun Intent?.isCameraError(): Boolean = getCanceledReason(this) ==
-                CANCELED_REASON_CAMERA_ERROR
+            CANCELED_REASON_CAMERA_ERROR
         fun Intent?.isAnalyzerFailure(): Boolean = getCanceledReason(this) ==
-                CANCELED_REASON_ANALYZER_FAILURE
+            CANCELED_REASON_ANALYZER_FAILURE
 
         fun Intent?.instanceId(): String? = this?.getStringExtra(RESULT_INSTANCE_ID)
         fun Intent?.scanId(): String? = this?.getStringExtra(RESULT_SCAN_ID)
@@ -100,7 +100,7 @@ abstract class ScanActivity<ImageFormat, State, AnalyzerResult, InterimResult, F
         private set
 
     private lateinit var resultAggregator:
-            ResultAggregator<ImageFormat, State, AnalyzerResult, InterimResult, FinalResult>
+        ResultAggregator<ImageFormat, State, AnalyzerResult, InterimResult, FinalResult>
 
     private val cameraAdapter by lazy { buildCameraAdapter() }
     protected val cameraErrorListener by lazy {
@@ -127,8 +127,7 @@ abstract class ScanActivity<ImageFormat, State, AnalyzerResult, InterimResult, F
 
         ensureValidApiKey()
 
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) !=
-            PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             requestCameraPermission()
         } else {
             runBlocking { permissionStat.trackResult("already_granted") }
@@ -190,9 +189,7 @@ abstract class ScanActivity<ImageFormat, State, AnalyzerResult, InterimResult, F
      * Request permission to use the camera.
      */
     private fun requestCameraPermission() {
-        ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA),
-            PERMISSION_REQUEST_CODE
-        )
+        ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA), PERMISSION_REQUEST_CODE)
     }
 
     /**
@@ -400,7 +397,7 @@ abstract class ScanActivity<ImageFormat, State, AnalyzerResult, InterimResult, F
     ): ProcessBoundAnalyzerLoop<ImageFormat, State, AnalyzerResult>
 
     protected abstract fun buildResultAggregator():
-            ResultAggregator<ImageFormat, State, AnalyzerResult, InterimResult, FinalResult>
+        ResultAggregator<ImageFormat, State, AnalyzerResult, InterimResult, FinalResult>
 
     protected abstract fun buildFrameConverter(): FrameConverter<Bitmap, ImageFormat>
 }

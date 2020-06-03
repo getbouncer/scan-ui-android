@@ -3,8 +3,8 @@ package com.getbouncer.scan.ui.util
 import androidx.test.filters.SmallTest
 import androidx.test.platform.app.InstrumentationRegistry
 import com.getbouncer.scan.ui.test.R
-import kotlin.test.assertEquals
 import org.junit.Test
+import kotlin.test.assertEquals
 
 class ViewExtensionsTest {
     private val testContext = InstrumentationRegistry.getInstrumentation().context
