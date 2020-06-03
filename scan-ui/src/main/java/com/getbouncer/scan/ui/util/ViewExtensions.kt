@@ -10,6 +10,7 @@ import android.widget.ImageView
 import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
+import com.getbouncer.scan.framework.time.Duration
 import com.getbouncer.scan.ui.R
 
 /**
@@ -27,9 +28,12 @@ fun View.setVisible(visible: Boolean) {
 /**
  * Fade in a view.
  */
-fun Context.fadeIn(view: View) {
+fun Context.fadeIn(view: View, duration: Duration? = null) {
     val animation = AnimationUtils.loadAnimation(this, R.anim.bouncer_fade_in)
     if (!view.isVisible()) {
+        if (duration != null) {
+            animation.duration = duration.inMilliseconds.toLong()
+        }
         view.startAnimation(animation)
         view.setVisible(true)
     }
