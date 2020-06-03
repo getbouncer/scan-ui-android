@@ -66,11 +66,13 @@ class DebugOverlay(context: Context, attrs: AttributeSet?) : View(context, attrs
     }
 
     @Suppress("Deprecation")
-    private fun getPaintColor(confidence: Float) = context.resources.getColor(when {
-        confidence > 0.75 -> R.color.bouncerDebugHighConfidence
-        confidence > 0.5 -> R.color.bouncerDebugMediumConfidence
-        else -> R.color.bouncerDebugLowConfidence
-    })
+    private fun getPaintColor(confidence: Float) = context.resources.getColor(
+        when {
+            confidence > 0.75 -> R.color.bouncerDebugHighConfidence
+            confidence > 0.5 -> R.color.bouncerDebugMediumConfidence
+            else -> R.color.bouncerDebugLowConfidence
+        }
+    )
 
     fun setBoxes(boxes: Collection<DebugDetectionBox>?) {
         this.boxes = boxes
