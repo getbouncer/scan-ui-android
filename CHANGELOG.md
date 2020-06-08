@@ -1,5 +1,15 @@
 # Changelog
 
+## [2.0.0011](https://github.com/getbouncer/scan-ui-android/tree/2.0.0011) (2020-06-08)
+
+[Full Changelog](https://github.com/getbouncer/scan-ui-android/compare/2.0.0010...2.0.0011)
+
+**Merged pull requests:**
+
+- Remove unnecessary manifest entries [\#18](https://github.com/getbouncer/scan-ui-android/pull/18) ([awushensky](https://github.com/awushensky))
+- Bump ktlint from 0.36.0 to 0.37.0 [\#17](https://github.com/getbouncer/scan-ui-android/pull/17) ([dependabot-preview[bot]](https://github.com/apps/dependabot-preview))
+- Introduce fadeIn duration config and update card border animation duration [\#16](https://github.com/getbouncer/scan-ui-android/pull/16) ([xsl](https://github.com/xsl))
+
 ## [2.0.0010](https://github.com/getbouncer/scan-ui-android/tree/2.0.0010) (2020-05-30)
 
 [Full Changelog](https://github.com/getbouncer/scan-ui-android/compare/2.0.0009...2.0.0010)
