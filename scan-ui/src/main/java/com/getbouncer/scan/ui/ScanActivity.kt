@@ -54,13 +54,11 @@ class CameraErrorListenerImpl(
     }
 
     private fun showCameraError(@StringRes message: Int, cause: Throwable?) {
-        val builder = AlertDialog.Builder(context)
-        builder.setTitle(R.string.bouncer_error_camera_title)
-        builder.setMessage(message)
-        builder.setPositiveButton(R.string.bouncer_error_camera_acknowledge_button) { _, _ ->
-            callback(cause)
-        }
-        builder.show()
+        AlertDialog.Builder(context)
+            .setTitle(R.string.bouncer_error_camera_title)
+            .setMessage(message)
+            .setPositiveButton(R.string.bouncer_error_camera_acknowledge_button) { _, _ -> callback(cause) }
+            .show()
     }
 }
 
@@ -127,6 +125,10 @@ abstract class ScanActivity<ImageFormat, State, AnalyzerResult, InterimResult, F
 
         ensureValidApiKey()
 
+        if (!CameraAdapter.isCameraSupported(this)) {
+            showCameraNotSupportedDialog()
+        }
+
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             requestCameraPermission()
         } else {
@@ -172,6 +174,17 @@ abstract class ScanActivity<ImageFormat, State, AnalyzerResult, InterimResult, F
                 }
             }
         }
+    }
+
+    /**
+     * Show a dialog explaining that the camera is not available.
+     */
+    private fun showCameraNotSupportedDialog() {
+        AlertDialog.Builder(this)
+            .setTitle(R.string.bouncer_error_camera_title)
+            .setMessage(R.string.bouncer_error_camera_unsupported)
+            .setPositiveButton(R.string.bouncer_error_camera_acknowledge_button) { _, _ -> cameraErrorCancelScan() }
+            .show()
     }
 
     /**
@@ -235,12 +248,12 @@ abstract class ScanActivity<ImageFormat, State, AnalyzerResult, InterimResult, F
     }
 
     fun showApiKeyInvalidError() {
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle(R.string.bouncer_api_key_invalid_title)
-        builder.setMessage(R.string.bouncer_api_key_invalid_message)
-        builder.setPositiveButton(R.string.bouncer_api_key_invalid_ok) { _, _ -> userCancelScan() }
-        builder.setCancelable(false)
-        builder.show()
+        AlertDialog.Builder(this)
+            .setTitle(R.string.bouncer_api_key_invalid_title)
+            .setMessage(R.string.bouncer_api_key_invalid_message)
+            .setPositiveButton(R.string.bouncer_api_key_invalid_ok) { _, _ -> userCancelScan() }
+            .setCancelable(false)
+            .show()
     }
 
     /**
