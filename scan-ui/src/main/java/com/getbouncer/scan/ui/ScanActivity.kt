@@ -23,8 +23,6 @@ import com.getbouncer.scan.camera.CameraErrorListener
 import com.getbouncer.scan.camera.FrameConverter
 import com.getbouncer.scan.camera.camera1.Camera1Adapter
 import com.getbouncer.scan.framework.Config
-import com.getbouncer.scan.framework.ProcessBoundAnalyzerLoop
-import com.getbouncer.scan.framework.ResultAggregator
 import com.getbouncer.scan.framework.Stats
 import com.getbouncer.scan.framework.api.ERROR_CODE_NOT_AUTHENTICATED
 import com.getbouncer.scan.framework.api.NetworkResult
@@ -32,6 +30,7 @@ import com.getbouncer.scan.framework.api.uploadScanStats
 import com.getbouncer.scan.framework.api.validateApiKey
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlin.coroutines.CoroutineContext
@@ -61,7 +60,7 @@ class CameraErrorListenerImpl(
     }
 }
 
-abstract class ScanActivity<ImageFormat, State, AnalyzerResult, InterimResult, FinalResult> : AppCompatActivity(), CoroutineScope {
+abstract class ScanActivity<DataFormat, State, AnalyzerResult, InterimResult, FinalResult> : AppCompatActivity(), CoroutineScope {
 
     companion object {
         private const val PERMISSION_REQUEST_CODE = 1200
@@ -96,15 +95,13 @@ abstract class ScanActivity<ImageFormat, State, AnalyzerResult, InterimResult, F
     protected var isFlashlightOn: Boolean = false
         private set
 
-    private lateinit var resultAggregator:
-        ResultAggregator<ImageFormat, State, AnalyzerResult, InterimResult, FinalResult>
-
     private val cameraAdapter by lazy { buildCameraAdapter() }
     protected val cameraErrorListener by lazy {
         CameraErrorListenerImpl(this) { t -> cameraErrorCancelScan(t) }
     }
 
-    private var isApiKeyValid = true
+    protected var isApiKeyValid = true
+        private set
 
     @LayoutRes
     abstract fun getLayoutRes(): Int
@@ -133,20 +130,6 @@ abstract class ScanActivity<ImageFormat, State, AnalyzerResult, InterimResult, F
         } else {
             runBlocking { permissionStat.trackResult("already_granted") }
             prepareCamera { onCameraReady() }
-        }
-    }
-
-    override fun onPause() {
-        super.onPause()
-        if (::resultAggregator.isInitialized) {
-            resultAggregator.resetAndPause()
-        }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        if (isApiKeyValid && ::resultAggregator.isInitialized) {
-            resultAggregator.resume()
         }
     }
 
@@ -217,7 +200,7 @@ abstract class ScanActivity<ImageFormat, State, AnalyzerResult, InterimResult, F
                             "API key is invalid: ${apiKeyValidateResult.body.keyInvalidReason}"
                         )
                         isApiKeyValid = false
-                        resultAggregator.resetAndPause()
+                        onInvalidApiKey()
                         showApiKeyInvalidError()
                     }
                 }
@@ -228,7 +211,7 @@ abstract class ScanActivity<ImageFormat, State, AnalyzerResult, InterimResult, F
                             "API key is invalid: ${apiKeyValidateResult.error.errorMessage}"
                         )
                         isApiKeyValid = false
-                        resultAggregator.resetAndPause()
+                        onInvalidApiKey()
                         showApiKeyInvalidError()
                     } else {
                         Log.w(
@@ -246,7 +229,7 @@ abstract class ScanActivity<ImageFormat, State, AnalyzerResult, InterimResult, F
         }
     }
 
-    fun showApiKeyInvalidError() {
+    protected fun showApiKeyInvalidError() {
         AlertDialog.Builder(this)
             .setTitle(R.string.bouncer_api_key_invalid_title)
             .setMessage(R.string.bouncer_api_key_invalid_message)
@@ -353,13 +336,8 @@ abstract class ScanActivity<ImageFormat, State, AnalyzerResult, InterimResult, F
             setFlashlightState(cameraAdapter.isTorchOn())
             onFlashSupported(it)
         }
-
-        resultAggregator = buildResultAggregator()
-        val mainLoop = buildMainLoop(resultAggregator)
-
-        launch(Dispatchers.Default) {
-            mainLoop.subscribeTo(cameraAdapter.getImageStream(), this)
-        }
+        
+        onCameraStreamAvailable(cameraAdapter.getImageStream())
     }
 
     /**
@@ -394,14 +372,17 @@ abstract class ScanActivity<ImageFormat, State, AnalyzerResult, InterimResult, F
     protected abstract val previewFrame: FrameLayout
 
     /**
-     * Generate the main loop
+     * A stream of images from the camera is available to be processed.
      */
-    protected abstract fun buildMainLoop(
-        resultAggregator: ResultAggregator<ImageFormat, State, AnalyzerResult, InterimResult, FinalResult>
-    ): ProcessBoundAnalyzerLoop<ImageFormat, State, AnalyzerResult>
+    protected abstract fun onCameraStreamAvailable(cameraStream: Channel<DataFormat>)
 
-    protected abstract fun buildResultAggregator():
-        ResultAggregator<ImageFormat, State, AnalyzerResult, InterimResult, FinalResult>
+    /**
+     * A converter to translate the output from the camera to images usable by the scanner.
+     */
+    protected abstract fun buildFrameConverter(): FrameConverter<Bitmap, DataFormat>
 
-    protected abstract fun buildFrameConverter(): FrameConverter<Bitmap, ImageFormat>
+    /**
+     * The API key was invalid.
+     */
+    protected abstract fun onInvalidApiKey()
 }
