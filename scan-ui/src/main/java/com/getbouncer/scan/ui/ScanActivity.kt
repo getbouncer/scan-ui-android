@@ -22,7 +22,6 @@ import com.getbouncer.scan.camera.CameraAdapter
 import com.getbouncer.scan.camera.CameraErrorListener
 import com.getbouncer.scan.camera.FrameConverter
 import com.getbouncer.scan.camera.camera1.Camera1Adapter
-import com.getbouncer.scan.camera.camera1.ImageReceiverAnalyzer
 import com.getbouncer.scan.framework.Config
 import com.getbouncer.scan.framework.ProcessBoundAnalyzerLoop
 import com.getbouncer.scan.framework.ResultAggregator
@@ -354,6 +353,13 @@ abstract class ScanActivity<ImageFormat, State, AnalyzerResult, InterimResult, F
             setFlashlightState(cameraAdapter.isTorchOn())
             onFlashSupported(it)
         }
+
+        resultAggregator = buildResultAggregator()
+        val mainLoop = buildMainLoop(resultAggregator)
+
+        launch(Dispatchers.Default) {
+            mainLoop.subscribeTo(cameraAdapter.getImageStream(), this)
+        }
     }
 
     /**
@@ -375,28 +381,13 @@ abstract class ScanActivity<ImageFormat, State, AnalyzerResult, InterimResult, F
     /**
      * Generate a camera adapter
      */
-    private fun buildCameraAdapter(): CameraAdapter {
-        resultAggregator = buildResultAggregator()
-        val mainLoop = buildMainLoop(resultAggregator)
-
-        launch(Dispatchers.Default) {
-            mainLoop.start(this)
-        }
-
-        val imageReceiver = ImageReceiverAnalyzer(
-            loop = mainLoop,
-            frameConverter = buildFrameConverter(),
-            analysisResolution = minimumAnalysisResolution
-        )
-
-        return Camera1Adapter(
-            activity = this,
-            previewView = previewFrame,
-            minimumResolution = minimumAnalysisResolution,
-            cameraErrorListener = cameraErrorListener,
-            imageReceiver = imageReceiver
-        )
-    }
+    private fun buildCameraAdapter() = Camera1Adapter(
+        activity = this,
+        previewView = previewFrame,
+        minimumResolution = minimumAnalysisResolution,
+        frameConverter = buildFrameConverter(),
+        cameraErrorListener = cameraErrorListener
+    )
 
     protected abstract val minimumAnalysisResolution: Size
 
