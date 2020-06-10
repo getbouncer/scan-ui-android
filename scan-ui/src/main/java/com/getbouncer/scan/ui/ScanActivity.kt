@@ -60,7 +60,7 @@ class CameraErrorListenerImpl(
     }
 }
 
-abstract class ScanActivity<DataFormat, State, AnalyzerResult, InterimResult, FinalResult> : AppCompatActivity(), CoroutineScope {
+abstract class ScanActivity<DataFormat> : AppCompatActivity(), CoroutineScope {
 
     companion object {
         private const val PERMISSION_REQUEST_CODE = 1200
