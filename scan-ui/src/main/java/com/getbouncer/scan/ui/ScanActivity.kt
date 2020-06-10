@@ -336,7 +336,7 @@ abstract class ScanActivity<DataFormat> : AppCompatActivity(), CoroutineScope {
             setFlashlightState(cameraAdapter.isTorchOn())
             onFlashSupported(it)
         }
-        
+
         onCameraStreamAvailable(cameraAdapter.getImageStream())
     }
 
