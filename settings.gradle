@@ -1,4 +1,4 @@
 include ':scan-ui', ':scan-camera', ':scan-framework'
 rootProject.name='scan-ui-android'
 project(':scan-camera').projectDir = new File('scan-camera-android/scan-camera')
-project(':scan-framework').projectDir = new File('scan-camera-android/scan-framework-android/scan-framework')
+project(':scan-framework').projectDir = new File('scan-framework-android/scan-framework')
