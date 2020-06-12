@@ -20,7 +20,6 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.getbouncer.scan.camera.CameraAdapter
 import com.getbouncer.scan.camera.CameraErrorListener
-import com.getbouncer.scan.camera.FrameConverter
 import com.getbouncer.scan.camera.camera1.Camera1Adapter
 import com.getbouncer.scan.framework.Config
 import com.getbouncer.scan.framework.Stats
@@ -30,7 +29,7 @@ import com.getbouncer.scan.framework.api.uploadScanStats
 import com.getbouncer.scan.framework.api.validateApiKey
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlin.coroutines.CoroutineContext
@@ -60,7 +59,7 @@ class CameraErrorListenerImpl(
     }
 }
 
-abstract class ScanActivity<DataFormat> : AppCompatActivity(), CoroutineScope {
+abstract class ScanActivity : AppCompatActivity(), CoroutineScope {
 
     companion object {
         private const val PERMISSION_REQUEST_CODE = 1200
@@ -363,7 +362,6 @@ abstract class ScanActivity<DataFormat> : AppCompatActivity(), CoroutineScope {
         activity = this,
         previewView = previewFrame,
         minimumResolution = minimumAnalysisResolution,
-        frameConverter = buildFrameConverter(),
         cameraErrorListener = cameraErrorListener
     )
 
@@ -374,12 +372,7 @@ abstract class ScanActivity<DataFormat> : AppCompatActivity(), CoroutineScope {
     /**
      * A stream of images from the camera is available to be processed.
      */
-    protected abstract fun onCameraStreamAvailable(cameraStream: Channel<DataFormat>)
-
-    /**
-     * A converter to translate the output from the camera to images usable by the scanner.
-     */
-    protected abstract fun buildFrameConverter(): FrameConverter<Bitmap, DataFormat>
+    protected abstract fun onCameraStreamAvailable(cameraStream: Flow<Bitmap>)
 
     /**
      * The API key was invalid.
