@@ -1,5 +1,16 @@
 # Changelog
 
+## [2.0.0012](https://github.com/getbouncer/scan-ui-android/tree/2.0.0012) (2020-06-15)
+
+[Full Changelog](https://github.com/getbouncer/scan-ui-android/compare/2.0.0011...2.0.0012)
+
+**Merged pull requests:**
+
+- Use flows [\#22](https://github.com/getbouncer/scan-ui-android/pull/22) ([awushensky](https://github.com/awushensky))
+- Relocate scan process [\#21](https://github.com/getbouncer/scan-ui-android/pull/21) ([awushensky](https://github.com/awushensky))
+- Separate framework from camera [\#20](https://github.com/getbouncer/scan-ui-android/pull/20) ([awushensky](https://github.com/awushensky))
+- Handle devices without cameras [\#19](https://github.com/getbouncer/scan-ui-android/pull/19) ([awushensky](https://github.com/awushensky))
+
 ## [2.0.0011](https://github.com/getbouncer/scan-ui-android/tree/2.0.0011) (2020-06-08)
 
 [Full Changelog](https://github.com/getbouncer/scan-ui-android/compare/2.0.0010...2.0.0011)
