@@ -35,9 +35,9 @@ These libraries are published in the [jcenter](https://jcenter.bintray.com/com/g
 
 ```gradle
 dependencies {
-    implementation 'com.getbouncer:scan-framework:2.0.0011'
-    implementation 'com.getbouncer:scan-camera:2.0.0011'
-    implementation 'com.getbouncer:scan-ui:2.0.0011'
+    implementation 'com.getbouncer:scan-framework:2.0.0012'
+    implementation 'com.getbouncer:scan-camera:2.0.0012'
+    implementation 'com.getbouncer:scan-ui:2.0.0012'
 }
 ```
 
@@ -49,11 +49,11 @@ This library provides a user interface through which cards (payment, driver lice
 class MyActivity : Activity {
 
     /**
-     * This method should be called as soon in the application as possible to give time for
-     * the SDK to warm up ML model processing.
+     * If you're planning to use name extraction, call this method to download the name extraction ML models onto the
+     * client device. Make sure you call this with ample time to download the models before launching the scan activity.
      */
     override fun onCreate(savedInstanceState: Bundle?) {
-        CardScanActivity.warmUp(this)
+        CardScanActivity.initializeNameExtraction(this, "<YOUR_API_KEY_HERE>")
     }
 
     /**
@@ -63,7 +63,8 @@ class MyActivity : Activity {
         CardScanActivity.start(
             activity = this,
             apiKey = "<YOUR_API_KEY_HERE>",
-            enableEnterCardManually = true
+            enableEnterCardManually = true,
+            enableNameExtraction = true
         )
     }
     
@@ -72,39 +73,32 @@ class MyActivity : Activity {
      */
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
         if (CardScanActivity.isScanResult(requestCode)) {
-            if (resultCode == Activity.RESULT_OK) {
-                handleCardScanSuccess(CardScanActivity.getScannedCard(data))
-            } else if (resultCode == Activity.RESULT_CANCELED) {
-                handleCardScanCanceled(data.getIntExtra(RESULT_CANCELED_REASON, -1))
-            }
+            CardScanActivity.parseScanResult(resultCode, data, this)
         }
     }
-    
-    private fun handleCardScanSuccess(result: ScanResult) {
-        // do something with the scanned credit card
+
+    override fun cardScanned(scanId: String?, scanResult: CardScanActivityResult) {
+        // do something with the scanned card
     }
-    
-    private fun handleCardScanCanceled(reason: Int) = when (reason) {
-        CANCELED_REASON_USER -> handleUserCanceled()
-        CANCELED_REASON_ENTER_MANUALLY -> handleEnterCardManually()
-        CANCELED_REASON_CAMERA_ERROR -> handleCameraError()
-        else -> handleCardScanFailed()
+
+    override fun enterManually(scanId: String?) {
+        // the user requested to enter a card number manually
     }
-    
-    private fun handleUserCanceled() {
-        // do something when the user cancels the card scan
+
+    override fun userCanceled(scanId: String?) {
+        // the user canceled the scan
     }
-    
-    private fun handleEnterCardManually() {
-        // do something when the user wants to enter a card manually
+
+    override fun cameraError(scanId: String?) {
+        // there was an error accessing or using the camera
     }
-    
-    private fun handleCameraError() {
-        // do something when camera had an error
+
+    override fun analyzerFailure(scanId: String?) {
+        // something went wrong with scanning and the card could not be scanned
     }
-    
-    private fun handleCardScanFailed() {
-        // do something when scanning a card failed
+
+    override fun canceledUnknown(scanId: String?) {
+        // the scan was canceled for some unknown reason
     }
 }
 ```
