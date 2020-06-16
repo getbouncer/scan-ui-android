@@ -46,59 +46,80 @@ dependencies {
 This library provides a user interface through which cards (payment, driver license, etc.) can be scanned.
 
 ```kotlin
-class MyActivity : Activity {
+class MyActivity : ScanActivity {
 
     /**
-     * If you're planning to use name extraction, call this method to download the name extraction ML models onto the
-     * client device. Make sure you call this with ample time to download the models before launching the scan activity.
+     * Keep track of the result aggregator for image analysis. This aggregator will stop analyzing in the event of an
+     * error.
+     */
+    private lateinit var resultAggregator: MyResultAggregator
+
+    /**
+     * Set up the UI.
      */
     override fun onCreate(savedInstanceState: Bundle?) {
-        CardScanActivity.initializeNameExtraction(this, "<YOUR_API_KEY_HERE>")
-    }
 
-    /**
-     * This method launches the CardScan SDK.
-     */
-    private fun onScanCardClicked() {
-        CardScanActivity.start(
-            activity = this,
-            apiKey = "<YOUR_API_KEY_HERE>",
-            enableEnterCardManually = true,
-            enableNameExtraction = true
-        )
-    }
-    
-    /**
-     * This method receives the result from the CardScan SDK.
-     */
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
-        if (CardScanActivity.isScanResult(requestCode)) {
-            CardScanActivity.parseScanResult(resultCode, data, this)
+        // when the user taps the flash button, toggle the flashlight
+        flashButtonView.setOnClickListener { toggleFlashlight() }
+
+        // when the user taps the screen, refocus on the point they tapped
+        viewFinderWindow.setOnTouchListener { _, e ->
+            setFocus(PointF(e.x, e.y))
+            true
         }
     }
 
-    override fun cardScanned(scanId: String?, scanResult: CardScanActivityResult) {
-        // do something with the scanned card
+    /**
+     * The layout for scanning cards.
+     */
+    override fun getLayoutRes(): Int = R.layout.my_activity_layout
+
+    override fun onFlashlightStateChanged(flashlightOn: Boolean) {
+        // the state of the flashlight changed. Update the UI as needed.
     }
 
-    override fun enterManually(scanId: String?) {
-        // the user requested to enter a card number manually
+    override fun onFlashSupported(supported: Boolean) {
+        // the camera's flash support is determined. Update the UI as needed.
     }
 
-    override fun userCanceled(scanId: String?) {
-        // the user canceled the scan
+    /**
+     * Wait for the preview [FrameLayout] to be created before starting the camera
+     */
+    override fun prepareCamera(onCameraReady: () -> Unit) {
+        previewFrame.post {
+            viewFinderBackground.setViewFinderRect(viewFinderRect)
+            onCameraReady()
+        }
     }
 
-    override fun cameraError(scanId: String?) {
-        // there was an error accessing or using the camera
+    /**
+     * The minimum resolution that the camera should use for analysis
+     */
+    override val minimumAnalysisResolution: Size = MINIMUM_RESOLUTION
+
+    /**
+     * The [FrameLayout] where the camera preview should be displayed
+     */
+    override val previewFrame: FrameLayout by lazy { cameraPreviewHolder }
+
+    /**
+     * A stream of images from the camera is available to process.
+     */
+    override fun onCameraStreamAvailable(cameraStream: Flow<Bitmap>) {
+        resultAggregator = MyResultAggregator()
+        resultAggregator.bindToLifecycle(this)
+
+        // analyze the images from the camera
     }
 
-    override fun analyzerFailure(scanId: String?) {
-        // something went wrong with scanning and the card could not be scanned
-    }
-
-    override fun canceledUnknown(scanId: String?) {
-        // the scan was canceled for some unknown reason
+    /**
+     * The API key in the Bouncer [Config] object was not valid when starting this activity.
+     */
+    override fun onInvalidApiKey() {
+        if (::resultAggregator.isInitialized) {
+            // don't process images if the API key is invalid. This prevents bad network calls.
+            resultAggregator.cancel()
+        }
     }
 }
 ```
