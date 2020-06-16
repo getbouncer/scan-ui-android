@@ -43,14 +43,14 @@ dependencies {
 
 ## Using this library
 
-This library provides a user interface through which cards (payment, driver license, etc.) can be scanned.
+This library provides a framework for scanning objects (cards, identification, etc). The abstract `ScanActivity` class provides connections to the camera and a set of common scan functionality. By extending this class, you can build your own user interface for scanning.
 
 ```kotlin
 class MyActivity : ScanActivity {
 
     /**
-     * Keep track of the result aggregator for image analysis. This aggregator will stop analyzing in the event of an
-     * error.
+     * Keep track of the result aggregator for image analysis. This aggregator will stop analyzing in the
+     * event of an error.
      */
     private lateinit var resultAggregator: MyResultAggregator
 
