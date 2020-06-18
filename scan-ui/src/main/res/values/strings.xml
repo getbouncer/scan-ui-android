@@ -10,7 +10,7 @@
     <string name="bouncer_camera_permission_denied_cancel">Cancel</string>
 
     <string name="bouncer_card_scan_instructions">Center your card in the frame</string>
-    <string name="bouncer_card_scan_security">🔒 Your card info is secure</string>
+    <string name="bouncer_card_scan_security">Your card info is secure</string>
     <string name="bouncer_enter_card_manually">Enter card manually</string>
     <string name="bouncer_scanned_wrong_card">Please scan the card ending in %1$s</string>
 
@@ -25,4 +25,5 @@
     <string name="bouncer_api_key_invalid_ok">OK</string>
 
     <string name="bouncer_cardscan_logo">cardscan.io logo</string>
+    <string name="bouncer_security_description">lock icon</string>
 </resources>

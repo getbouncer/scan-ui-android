@@ -84,12 +84,10 @@
     <style name="BouncerSecurity.Default">
         <item name="android:textColor">@color/bouncerSecurityColorDark</item>
         <item name="android:textSize">@dimen/bouncerSecurityTextSize</item>
-        <item name="android:textStyle">bold</item>
+        <item name="android:textStyle">normal</item>
         <item name="android:layout_marginTop">@dimen/bouncerSecurityMargin</item>
         <item name="android:layout_marginBottom">@dimen/bouncerSecurityMargin</item>
-        <item name="android:layout_marginStart">@dimen/bouncerSecurityMargin</item>
         <item name="android:layout_marginEnd">@dimen/bouncerSecurityMargin</item>
-        <item name="android:gravity">center</item>
     </style>
 
     <attr name="bouncerCardPanColor" format="color" />

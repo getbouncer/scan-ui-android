@@ -8,6 +8,7 @@
 
     <dimen name="bouncerInstructionsMargin">16dp</dimen>
     <dimen name="bouncerSecurityMargin">16dp</dimen>
+    <dimen name="bouncerSecurityIconMargin">4dp</dimen>
     <dimen name="bouncerEnterCardManuallyMargin">16dp</dimen>
 
     <dimen name="bouncerNotFoundOutlineWidth">1</dimen>
@@ -22,7 +23,7 @@
     <dimen name="bouncerExpiryStrokeSize">2.5</dimen>
 
     <dimen name="bouncerInstructionsTextSize">22sp</dimen>
-    <dimen name="bouncerSecurityTextSize">18sp</dimen>
+    <dimen name="bouncerSecurityTextSize">14sp</dimen>
     <dimen name="bouncerEnterCardManuallyTextSize">18sp</dimen>
 
     <dimen name="bouncerButtonMargin">16dp</dimen>

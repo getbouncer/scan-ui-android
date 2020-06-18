@@ -106,10 +106,10 @@ abstract class ScanActivity : AppCompatActivity(), CoroutineScope {
         super.onCreate(savedInstanceState)
 
         // prevent screenshots and keep the screen on while scanning
-        window.setFlags(
-            WindowManager.LayoutParams.FLAG_SECURE + WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON,
-            WindowManager.LayoutParams.FLAG_SECURE + WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
-        )
+//        window.setFlags(
+//            WindowManager.LayoutParams.FLAG_SECURE + WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON,
+//            WindowManager.LayoutParams.FLAG_SECURE + WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
+//        )
 
         setContentView(getLayoutRes())
 
