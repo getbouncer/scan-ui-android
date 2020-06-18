@@ -27,7 +27,7 @@
             l -1,-6
             a 4,4,0,0,0,-1,-7.873
             Z"
-        android:fillColor="@color/bouncerSecurityColorDark" />
+        android:fillColor="@color/bouncerSecurityColorLight" />
 
     <path
         android:name="lock_shank"
@@ -36,6 +36,6 @@
             l 0,-5.5
             a 9,9,0,0,1,18,0
             l 0,5"
-        android:strokeColor="@color/bouncerSecurityColorDark"
+        android:strokeColor="@color/bouncerSecurityColorLight"
         android:strokeWidth="2"/>
 </vector>
