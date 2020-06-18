@@ -24,6 +24,10 @@
     <string name="bouncer_api_key_invalid_message">Sorry, this API key is not valid.</string>
     <string name="bouncer_api_key_invalid_ok">OK</string>
 
+    <string name="bouncer_name_and_expiry_initialization_error">Config Problem</string>
+    <string name="bouncer_name_and_expiry_initialization_error_message">Please initialize name/expiry models first in the warmup() function.</string>
+    <string name="bouncer_name_and_expiry_initialization_error_ok">OK</string>
+
     <string name="bouncer_cardscan_logo">cardscan.io logo</string>
     <string name="bouncer_security_description">lock icon</string>
 </resources>
