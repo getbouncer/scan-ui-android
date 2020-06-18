@@ -79,6 +79,17 @@
         <item name="android:gravity">center</item>
     </style>
 
+    <style name="BouncerSecurity" />
+
+    <style name="BouncerSecurity.Default">
+        <item name="android:textColor">@color/bouncerSecurityColorDark</item>
+        <item name="android:textSize">@dimen/bouncerSecurityTextSize</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:layout_marginTop">@dimen/bouncerSecurityMargin</item>
+        <item name="android:layout_marginBottom">@dimen/bouncerSecurityMargin</item>
+        <item name="android:layout_marginEnd">@dimen/bouncerSecurityMargin</item>
+    </style>
+
     <attr name="bouncerCardPanColor" format="color" />
     <attr name="bouncerCardExpiryColor" format="color" />
 
