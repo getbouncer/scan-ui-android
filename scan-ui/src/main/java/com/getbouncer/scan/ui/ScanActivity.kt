@@ -25,8 +25,11 @@ import com.getbouncer.scan.framework.Config
 import com.getbouncer.scan.framework.Stats
 import com.getbouncer.scan.framework.api.ERROR_CODE_NOT_AUTHENTICATED
 import com.getbouncer.scan.framework.api.NetworkResult
+import com.getbouncer.scan.framework.api.dto.ScanStatistics
 import com.getbouncer.scan.framework.api.uploadScanStats
 import com.getbouncer.scan.framework.api.validateApiKey
+import com.getbouncer.scan.framework.util.AppDetails
+import com.getbouncer.scan.framework.util.Device
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -188,7 +191,7 @@ abstract class ScanActivity : AppCompatActivity(), CoroutineScope {
      */
     private fun ensureValidApiKey() {
         launch {
-            when (val apiKeyValidateResult = validateApiKey()) {
+            when (val apiKeyValidateResult = validateApiKey(this@ScanActivity)) {
                 is NetworkResult.Success -> {
                     if (!apiKeyValidateResult.body.isApiKeyValid) {
                         Log.e(
@@ -311,9 +314,35 @@ abstract class ScanActivity : AppCompatActivity(), CoroutineScope {
      */
     private fun closeScanner() {
         setFlashlightState(false)
-        uploadScanStats(this, Stats.instanceId, Stats.scanId)
+        uploadStats(
+            instanceId = Stats.instanceId,
+            scanId = Stats.scanId,
+            device = Device.fromContext(this),
+            appDetails = AppDetails.fromContext(this),
+            scanStatistics = runBlocking { ScanStatistics.fromStats() }
+        )
         runBlocking { Stats.finishScan() }
         finish()
+    }
+
+    /**
+     * Upload stats to the bouncer servers. Override this to perform some other action.
+     */
+    protected fun uploadStats(
+        instanceId: String,
+        scanId: String?,
+        device: Device,
+        appDetails: AppDetails,
+        scanStatistics: ScanStatistics
+    ) {
+        uploadScanStats(
+            context = this,
+            instanceId = instanceId,
+            scanId = scanId,
+            device = device,
+            appDetails = appDetails,
+            scanStatistics = scanStatistics
+        )
     }
 
     /**
