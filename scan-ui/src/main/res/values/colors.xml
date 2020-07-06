@@ -10,6 +10,8 @@
     <color name="bouncerEnterCardManuallyColorLight">@android:color/black</color>
     <color name="bouncerInstructionsColorDark">@android:color/white</color>
     <color name="bouncerInstructionsColorLight">@android:color/black</color>
+    <color name="bouncerSecurityColorDark">@android:color/white</color>
+    <color name="bouncerSecurityColorLight">@android:color/black</color>
 
     <color name="bouncerNotFoundBackground">#DD222222</color>
     <color name="bouncerFoundBackground">#DD222222</color>

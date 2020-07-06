@@ -95,12 +95,9 @@ abstract class ScanActivity : AppCompatActivity(), CoroutineScope {
         private set
 
     private val cameraAdapter by lazy { buildCameraAdapter() }
-    protected val cameraErrorListener by lazy {
+    private val cameraErrorListener by lazy {
         CameraErrorListenerImpl(this) { t -> cameraErrorCancelScan(t) }
     }
-
-    protected var isApiKeyValid = true
-        private set
 
     @LayoutRes
     abstract fun getLayoutRes(): Int
@@ -198,7 +195,6 @@ abstract class ScanActivity : AppCompatActivity(), CoroutineScope {
                             Config.logTag,
                             "API key is invalid: ${apiKeyValidateResult.body.keyInvalidReason}"
                         )
-                        isApiKeyValid = false
                         onInvalidApiKey()
                         showApiKeyInvalidError()
                     }
@@ -209,7 +205,6 @@ abstract class ScanActivity : AppCompatActivity(), CoroutineScope {
                             Config.logTag,
                             "API key is invalid: ${apiKeyValidateResult.error.errorMessage}"
                         )
-                        isApiKeyValid = false
                         onInvalidApiKey()
                         showApiKeyInvalidError()
                     } else {
@@ -365,9 +360,9 @@ abstract class ScanActivity : AppCompatActivity(), CoroutineScope {
         cameraErrorListener = cameraErrorListener
     )
 
-    protected abstract val minimumAnalysisResolution: Size
-
     protected abstract val previewFrame: FrameLayout
+
+    protected abstract val minimumAnalysisResolution: Size
 
     /**
      * A stream of images from the camera is available to be processed.
