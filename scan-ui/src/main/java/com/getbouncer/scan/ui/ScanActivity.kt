@@ -79,11 +79,11 @@ abstract class ScanActivity : AppCompatActivity(), CoroutineScope {
             data?.getIntExtra(RESULT_CANCELED_REASON, Int.MIN_VALUE) ?: Int.MIN_VALUE
 
         fun Intent?.isUserCanceled(): Boolean = getCanceledReason(this) ==
-                CANCELED_REASON_USER
+            CANCELED_REASON_USER
         fun Intent?.isCameraError(): Boolean = getCanceledReason(this) ==
-                CANCELED_REASON_CAMERA_ERROR
+            CANCELED_REASON_CAMERA_ERROR
         fun Intent?.isAnalyzerFailure(): Boolean = getCanceledReason(this) ==
-                CANCELED_REASON_ANALYZER_FAILURE
+            CANCELED_REASON_ANALYZER_FAILURE
 
         fun Intent?.instanceId(): String? = this?.getStringExtra(RESULT_INSTANCE_ID)
         fun Intent?.scanId(): String? = this?.getStringExtra(RESULT_SCAN_ID)
