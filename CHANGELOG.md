@@ -1,5 +1,18 @@
 # Changelog
 
+## [2.0.0013](https://github.com/getbouncer/scan-ui-android/tree/2.0.0013) (2020-07-08)
+
+[Full Changelog](https://github.com/getbouncer/scan-ui-android/compare/2.0.0012...2.0.0013)
+
+**Merged pull requests:**
+
+- Update submodule [\#29](https://github.com/getbouncer/scan-ui-android/pull/29) ([awushensky](https://github.com/awushensky))
+- Separate scan stats [\#27](https://github.com/getbouncer/scan-ui-android/pull/27) ([awushensky](https://github.com/awushensky))
+- Bump ktlint from 0.37.0 to 0.37.2 [\#26](https://github.com/getbouncer/scan-ui-android/pull/26) ([dependabot-preview[bot]](https://github.com/apps/dependabot-preview))
+- Add initialization error strings [\#25](https://github.com/getbouncer/scan-ui-android/pull/25) ([xsl](https://github.com/xsl))
+- Update UI [\#24](https://github.com/getbouncer/scan-ui-android/pull/24) ([awushensky](https://github.com/awushensky))
+- Update scan-framework-android submodule [\#23](https://github.com/getbouncer/scan-ui-android/pull/23) ([xsl](https://github.com/xsl))
+
 ## [2.0.0012](https://github.com/getbouncer/scan-ui-android/tree/2.0.0012) (2020-06-15)
 
 [Full Changelog](https://github.com/getbouncer/scan-ui-android/compare/2.0.0011...2.0.0012)
@@ -37,6 +50,7 @@
 
 - Bump core-ktx from 1.2.0 to 1.3.0 [\#14](https://github.com/getbouncer/scan-ui-android/pull/14) ([dependabot-preview[bot]](https://github.com/apps/dependabot-preview))
 - Keep the screen on while scanning [\#13](https://github.com/getbouncer/scan-ui-android/pull/13) ([awushensky](https://github.com/awushensky))
+- Add tests [\#10](https://github.com/getbouncer/scan-ui-android/pull/10) ([awushensky](https://github.com/awushensky))
 
 ## [2.0.0008](https://github.com/getbouncer/scan-ui-android/tree/2.0.0008) (2020-05-21)
 
@@ -45,7 +59,6 @@
 **Merged pull requests:**
 
 - Bump kotlinx-coroutines-core from 1.3.3 to 1.3.7 [\#11](https://github.com/getbouncer/scan-ui-android/pull/11) ([dependabot-preview[bot]](https://github.com/apps/dependabot-preview))
-- Add tests [\#10](https://github.com/getbouncer/scan-ui-android/pull/10) ([awushensky](https://github.com/awushensky))
 - Bump com.jfrog.bintray from 1.7.3 to 1.8.5 [\#8](https://github.com/getbouncer/scan-ui-android/pull/8) ([dependabot-preview[bot]](https://github.com/apps/dependabot-preview))
 - Bump com.github.dcendents.android-maven from 2.0 to 2.1 [\#7](https://github.com/getbouncer/scan-ui-android/pull/7) ([dependabot-preview[bot]](https://github.com/apps/dependabot-preview))
 - Update default user interface [\#6](https://github.com/getbouncer/scan-ui-android/pull/6) ([awushensky](https://github.com/awushensky))
