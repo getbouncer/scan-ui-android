@@ -328,7 +328,7 @@ abstract class ScanActivity : AppCompatActivity(), CoroutineScope {
     /**
      * Upload stats to the bouncer servers. Override this to perform some other action.
      */
-    protected fun uploadStats(
+    protected open fun uploadStats(
         instanceId: String,
         scanId: String?,
         device: Device,
