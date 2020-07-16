@@ -132,6 +132,11 @@ abstract class ScanActivity : AppCompatActivity(), CoroutineScope {
         }
     }
 
+    override fun onPause() {
+        super.onPause()
+        setFlashlightState(false)
+    }
+
     /**
      * Handle permission status changes. If the camera permission has been granted, start it. If
      * not, show a dialog.
