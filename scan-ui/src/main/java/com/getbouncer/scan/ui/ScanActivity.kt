@@ -336,7 +336,6 @@ abstract class ScanActivity : AppCompatActivity(), CoroutineScope {
             appDetails = AppDetails.fromContext(this),
             scanStatistics = runBlocking { ScanStatistics.fromStats() }
         )
-        runBlocking { Stats.finishScan() }
         finish()
     }
 
@@ -358,6 +357,8 @@ abstract class ScanActivity : AppCompatActivity(), CoroutineScope {
             appDetails = appDetails,
             scanStatistics = scanStatistics
         )
+        runBlocking { Stats.finishScan() }
+        runBlocking { Stats.resetStats() }
     }
 
     /**
