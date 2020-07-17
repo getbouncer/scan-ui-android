@@ -1,5 +1,4 @@
 # Overview
-
 This repository provides user interfaces for scanning cards. [CardScan](https://cardscan.io/) is a relatively small library (1.9 MB) that provides fast and accurate payment card scanning.
 
 This library is the foundation for CardScan and CardVerify enterprise libraries, which validate the authenticity of payment cards as they are scanned.
@@ -7,18 +6,16 @@ This library is the foundation for CardScan and CardVerify enterprise libraries,
 ![demo](docs/images/demo.gif)
 
 ## Contents
-
 * [Requirements](#requirements)
 * [Demo](#demo)
-* [Installation](#installation)
-* [Using this library](#using-this-library)
+* [Integration](#integration)
+* [Using](#using)
 * [Customizing](#customizing)
 * [Developing](#developing)
 * [Authors](#authors)
 * [License](#license)
 
 ## Requirements
-
 * Android API level 21 or higher
 * AndroidX compatibility
 * Kotlin coroutine compatibility
@@ -26,11 +23,9 @@ This library is the foundation for CardScan and CardVerify enterprise libraries,
 Note: Your app does not have to be written in kotlin to integrate this library, but must be able to depend on kotlin functionality.
 
 ## Demo
-
 An app demonstrating the basic capabilities of this library is available in [github](https://github.com/getbouncer/cardscan-demo-android).
 
-## Installation
-
+## Integration
 These libraries are published in the [jcenter](https://jcenter.bintray.com/com/getbouncer/) repository, so for most gradle configurations you only need to add the dependencies to your app's `build.gradle` file:
 
 ```gradle
@@ -41,111 +36,27 @@ dependencies {
 }
 ```
 
-## Using this library
-
+## Using
 This library provides a framework for scanning objects (cards, identification, etc). The abstract `ScanActivity` class provides connections to the camera and a set of common scan functionality. By extending this class, you can build your own user interface for scanning.
 
-```kotlin
-class MyActivity : ScanActivity {
-
-    /**
-     * Keep track of the result aggregator for image analysis. This aggregator will stop analyzing in the
-     * event of an error.
-     */
-    private lateinit var resultAggregator: MyResultAggregator
-
-    /**
-     * Set up the UI.
-     */
-    override fun onCreate(savedInstanceState: Bundle?) {
-
-        // when the user taps the flash button, toggle the flashlight
-        flashButtonView.setOnClickListener { toggleFlashlight() }
-
-        // when the user taps the screen, refocus on the point they tapped
-        viewFinderWindow.setOnTouchListener { _, e ->
-            setFocus(PointF(e.x, e.y))
-            true
-        }
-    }
-
-    /**
-     * The layout for scanning cards.
-     */
-    override fun getLayoutRes(): Int = R.layout.my_activity_layout
-
-    override fun onFlashlightStateChanged(flashlightOn: Boolean) {
-        // the state of the flashlight changed. Update the UI as needed.
-    }
-
-    override fun onFlashSupported(supported: Boolean) {
-        // the camera's flash support is determined. Update the UI as needed.
-    }
-
-    /**
-     * Wait for the preview [FrameLayout] to be created before starting the camera
-     */
-    override fun prepareCamera(onCameraReady: () -> Unit) {
-        previewFrame.post {
-            viewFinderBackground.setViewFinderRect(viewFinderRect)
-            onCameraReady()
-        }
-    }
-
-    /**
-     * The minimum resolution that the camera should use for analysis
-     */
-    override val minimumAnalysisResolution: Size = MINIMUM_RESOLUTION
-
-    /**
-     * The [FrameLayout] where the camera preview should be displayed
-     */
-    override val previewFrame: FrameLayout by lazy { cameraPreviewHolder }
-
-    /**
-     * A stream of images from the camera is available to process.
-     */
-    override fun onCameraStreamAvailable(cameraStream: Flow<Bitmap>) {
-        resultAggregator = MyResultAggregator()
-        resultAggregator.bindToLifecycle(this)
-
-        // analyze the images from the camera
-    }
-
-    /**
-     * The API key in the Bouncer [Config] object was not valid when starting this activity.
-     */
-    override fun onInvalidApiKey() {
-        if (::resultAggregator.isInitialized) {
-            // don't process images if the API key is invalid. This prevents bad network calls.
-            resultAggregator.cancel()
-        }
-    }
-}
-```
+See the [CardScan UI](https://github.com/getbouncer/cardscan-ui-android/blob/master/cardscan-ui/src/main/java/com/getbouncer/cardscan/ui/CardScanActivity.kt) and [Single Activity Demo](https://github.com/getbouncer/cardscan-demo-android/blob/master/demo/src/main/java/com/getbouncer/cardscan/demo/SingleActivityDemo.java) for examples.
 
 ## Customizing
-
 This library is built to be customized to fit your UI.
 
 ### Basic modifications
-
-To modify text, colors, or padding of the default UI, see the [customization](docs/customize.md) documentation.
+To modify text, colors, or padding of the default UI, see the [customization](https://docs.getbouncer.com/card-scan/android-integration-guide/android-customization-guide) documentation.
 
 ### Extensive modifications
-
-To modify arrangement or UI functionality, you can create a custom implementation based on this library. See examples in the [scan-framework](https://github.com/getbouncer/scan-framework-android) repository.
+This library is designed to be extended by a custom UI. Create an activity that extends the `ScanActivity` to build your own user interface on top of the CardScan logic.
 
 ## Developing
-
-See the [development docs](docs/develop.md) for details on developing this library.
+See the [development docs](https://docs.getbouncer.com/card-scan/android-integration-guide/android-development-guide) for details on developing this library.
 
 ## Authors
-
 Adam Wushensky, Sam King, and Zain ul Abi Din
 
 ## License
-
 This library is available under paid and free licenses. See the [LICENSE](LICENSE) file for the full license text.
 
 ### Quick summary
