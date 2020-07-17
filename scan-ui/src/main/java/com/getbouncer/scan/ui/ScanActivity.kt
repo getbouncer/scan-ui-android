@@ -10,6 +10,7 @@ import android.graphics.PointF
 import android.os.Bundle
 import android.util.Log
 import android.util.Size
+import android.view.View
 import android.view.WindowManager
 import android.widget.FrameLayout
 import androidx.annotation.LayoutRes
@@ -108,11 +109,20 @@ abstract class ScanActivity : AppCompatActivity(), CoroutineScope {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // prevent screenshots and keep the screen on while scanning
+        // Prevent screenshots and keep the screen on while scanning.
         window.setFlags(
             WindowManager.LayoutParams.FLAG_SECURE + WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON,
             WindowManager.LayoutParams.FLAG_SECURE + WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
         )
+
+        // Hide both the navigation bar and the status bar. Allow system gestures to show the navigation and status bar,
+        // but prevent the UI from resizing when they are shown.
+        window.decorView.apply {
+            systemUiVisibility = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or
+                View.SYSTEM_UI_FLAG_FULLSCREEN or
+                View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY or
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+        }
 
         setContentView(getLayoutRes())
 
