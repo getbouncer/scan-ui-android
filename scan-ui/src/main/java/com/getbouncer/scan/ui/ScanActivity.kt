@@ -329,13 +329,15 @@ abstract class ScanActivity : AppCompatActivity(), CoroutineScope {
      */
     private fun closeScanner() {
         setFlashlightState(false)
-        uploadStats(
-            instanceId = Stats.instanceId,
-            scanId = Stats.scanId,
-            device = Device.fromContext(this),
-            appDetails = AppDetails.fromContext(this),
-            scanStatistics = runBlocking { ScanStatistics.fromStats() }
-        )
+        if (Config.uploadStats) {
+            uploadStats(
+                instanceId = Stats.instanceId,
+                scanId = Stats.scanId,
+                device = Device.fromContext(this),
+                appDetails = AppDetails.fromContext(this),
+                scanStatistics = runBlocking { ScanStatistics.fromStats() }
+            )
+        }
         finish()
     }
 
